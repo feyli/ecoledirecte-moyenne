@@ -1,2 +1,20 @@
-# ecoledirecte-moyenne
- Utilitaire EcoleDirecte dont la seule fonction est d'obtenir sa moyenne générale
+
+# Moyenne EcoleDirecte
+
+Ce projet a pour unique fonction d'indiquer votre moyenne générale du trimestre choisi.
+
+## Installation
+
+Clonez ce répertoire ou téléchargez-le en archive et c'est fini.
+## Références
+
+Ce projet est susceptible d'utiliser des bibliothèques NPM ainsi que leurs dépendances.
+Ceci dit, l'activité entre ce programme et l'API d'EcoleDirecte est entièrement gérée localement et dans ce projet. Les fonctions de connexion à l'API sont présentes dans le fichier api.js exhaustivement.
+## Authors
+
+- [@feyli](https://www.github.com/feyli)
+## Me contacter
+
+Pour le moment, vous pouvez me contacter via Discord : Feyli#6634
+
+N'hésitez surtout pas si vous avez la moindre question.
