@@ -5,7 +5,8 @@ Ce projet a pour unique fonction d'indiquer votre moyenne générale du trimestr
 
 ## Installation
 
-Clonez ce répertoire ou téléchargez-le en archive et c'est fini.
+Vous pouvez télécharger une release via l'onglet [Releases](https://github.com/feyli/ecoledirecte-moyenne/releases). Il est actuellement vide.
+
 ## Références
 
 Ce projet est susceptible d'utiliser des bibliothèques NPM ainsi que leurs dépendances.
