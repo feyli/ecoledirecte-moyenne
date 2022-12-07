@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoleDirecte Fetcher</title>
+</head>
+<script>
+const baseUrl = 'https://api.ecoledirecte.com/v3';
+
+// function: login to EcoleDirecte with prompted credentials
+function login(username, password) {
+    let data = 'data={"identifiant": "' + username + '", "motdepasse": "' + password + '"}';
+    return fetch(baseUrl + '/login.awp?verbe=get&', {
+        method: 'POST',
+        body: data
+    }).then(response => response.json());
+}
+
+function getGrades(token, idEleve) {
+    let data = 'data={"token": "' + token + '"}';
+    return fetch(baseUrl + '/eleves/' + idEleve + '/notes.awp?verbe=get&', {
+        method: 'POST',
+        body: data
+    }).then(response => response.json());
+}
+
+// function: main
+async function moyenneEtRang(username, password) {
+    console.log("Attempting to log in...")
+
+    // login to EcoleDirecte
+    let { data } = await login(username, password);
+    let token = data.token;
+    let idEleve = data.data.accounts[0].id;
+    // manage wrong credentials with error message
+    if (token == undefined) {
+        console.log("Wrong credentials, please try again");
+        return;
+    }
+    console.log("Logged in successfully!")
+    
+    // get grades of first trimester and sort them by discipline
+    let grades = await getGrades(token, idEleve);
+    let disciplines = grades.data.data.periodes[0].ensembleMatieres.disciplines.filter(element => element.codeSousMatiere.length == 0).map(element => {return {discipline: element.discipline, moyenne: parseFloat(element.moyenne), coef: parseFloat(element.coef), rank: element.rang}})
+    console.log("Grades fetched successfully!")
+    
+    // sum of all grades and divide by number of grades using coefs
+    let moyenneGenerale = 0;
+    rangGeneral = 0;
+    let coefTotal = 0;
+    disciplines.forEach(element => {
+        moyenneGenerale += element.moyenne * element.coef; 
+        rangGeneral += element.rank * element.coef;
+        coefTotal += element.coef;
+    });
+    moyenneGenerale /= coefTotal
+    moyenneGenerale = moyenneGenerale.toFixed(2);
+    rangGeneral /= coefTotal;
+    rangGeneral = rangGeneral.toFixed(0);
+    
+    console.log('\n\n\n')
+    console.log(`Votre moyenne générale est de ${moyenneGenerale}\n\nVotre rang général est de ${rangGeneral}\nVeuillez noter que ce rang n'est qu'une moyenne des rangs de chaque matière, il ne représente pas le rang de votre moyenne générale`);
+}
+
+console.log('\n\n\n\n\n')
+main().then(() => {
+    console.log('\n\n\n\n\n')
+});
+</script>
+<body>
+    
+</body>
+</html>
