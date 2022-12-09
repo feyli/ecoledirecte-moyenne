@@ -1,6 +1,7 @@
 // import modules
 const axios = require('axios');
 const prompt = require('prompt');
+const { login, getGrades } = require('./functions/api.js');
 
 const baseUrl = 'https://api.ecoledirecte.com/v3';
 
@@ -28,16 +29,6 @@ function promptUser() {
     });
 }
 
-// function: login to EcoleDirecte with prompted credentials
-function login(username, password) {
-    let data = 'data={"identifiant": "' + username + '", "motdepasse": "' + password + '"}';
-    return axios.post(baseUrl + '/login.awp', data);
-}
-
-function getGrades(token, idEleve) {
-    let data = 'data={"token": "' + token + '"}';
-    return axios.post(baseUrl + '/eleves/' + idEleve + '/notes.awp?verbe=get&', data);
-}
 
 // function: prompt user for a trimester and return the grades of that trimester
 /**
@@ -88,7 +79,7 @@ async function main() {
     console.log("Logging in...")
 
     // login to EcoleDirecte
-    let {data} = await login(username, password);
+    let {data} = await login(username, password, baseUrl);
     if (!data.token) {
         console.log("Error: invalid credentials, please try again.");
         process.exit(1);
@@ -98,7 +89,7 @@ async function main() {
     console.log("Logged in successfully!")
 
     // get grades
-    let grades = await getGrades(token, idEleve);
+    let grades = await getGrades(token, idEleve, baseUrl);
 
     /**
      * @param disciplines.ensembleMatieres array
