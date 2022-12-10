@@ -20,7 +20,10 @@
 
             // change moyenne text with moyenne from main() function that returns a promise
             let promise = main(username, password);
-            console.log(promise)
+            moyenneText.innerHTML = "Loading...";
+            await promise.then((moyenne) => {
+                moyenneText.innerHTML = moyenne;
+            });
         }
     </script>
     <form id="credentials">
