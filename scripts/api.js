@@ -24,6 +24,7 @@ async function main(username, password) {
         let data = await login(username, password, baseUrl);
         if (!data.token) {
             console.log("Error: invalid credentials, please try again.");
+            resolve("invcrd");
         }
         if (!data.token) return;
         let token = data.token;
@@ -41,7 +42,7 @@ async function main(username, password) {
          * @param element.sousMatiere boolean (true if subject is a part of another subject)
          */
             // prompt user for trimester and get grades of that trimester
-        let trimester = 1;
+        let trimester = 3;
         let disciplines = grades.data.periodes[trimester - 1].ensembleMatieres.disciplines
             .filter(element => !element.sousMatiere && element.moyenne)
             .map(element => {
