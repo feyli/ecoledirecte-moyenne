@@ -13,7 +13,7 @@ function getGrades(token, idEleve, baseUrl) {
     return fetch(baseUrl + '/eleves/' + idEleve + '/notes.awp?verbe=get&', {
         method: 'POST',
         body: data
-    }).then(response => response.json());
+    }).then(response => response.json()).then(response => response.data.periodes);
 }
 
 async function main(username, password) {
