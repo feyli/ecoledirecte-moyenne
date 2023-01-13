@@ -1,4 +1,5 @@
 let baseUrl = "https://api.ecoledirecte.com/v3";
+let box = document.getElementById("box");
 let fields;
 let submitButton;
 
@@ -18,6 +19,7 @@ async function submit() {
         } else if (data.code === 200) {
             console.log("Logged in successfully!")
             evalData(data).then(d => {
+                d = d.filter(e => e.sum);
                 createTable(d);
                 enable();
             })
@@ -42,12 +44,12 @@ function createTable(d) {
     tr.appendChild(thPeriode);
     tr.appendChild(thMoyenne);
     tbody.appendChild(tr);
-    for (let periode in d) {
+    for (let i = 0; i < d.length; i++) {
         let tr = document.createElement("tr");
         let tdPeriode = document.createElement("td");
-        tdPeriode.innerText = periode;
+        tdPeriode.innerText = d[i].name;
         let tdMoyenne = document.createElement("td");
-        tdMoyenne.innerText = d[periode];
+        tdMoyenne.innerText = d[i].sum;
         tr.appendChild(tdPeriode);
         tr.appendChild(tdMoyenne);
         tbody.appendChild(tr);
@@ -88,14 +90,12 @@ function enable() {
 }
 
 async function evalData(data) {
-    console.log(data)
-    let array = {}
+    let d = []
     /**
      * @param data.idEleve
      * @type {*}
      */
-    let grades = await getGrades(data.token, data.idEleve, baseUrl);
-    console.log("grades:\n", grades);
+    let grades = await getGrades(data.token, data.data.accounts[0].id, baseUrl);
 
     /**
      * @param disciplines.ensembleMatieres array
@@ -104,7 +104,7 @@ async function evalData(data) {
      */
 
     for (let p = 0; p < grades.length; p++) {
-        let disciplines = grades.data.periodes[p].ensembleMatieres.disciplines
+        let disciplines = grades[p].ensembleMatieres.disciplines
             .filter(element => !element.sousMatiere && element.moyenne)
             .map(element => {
                 return {
@@ -124,5 +124,17 @@ async function evalData(data) {
         });
         moyenneGenerale /= coefTotal
         moyenneGenerale = moyenneGenerale.toFixed(2);
+        console.log(grades[p].periode, moyenneGenerale)
+        d.push({
+            name: grades[p].periode,
+            sum: Number(moyenneGenerale)
+        })
     }
+    return d;
+}
+
+function error(err) {
+  let errorDiv = document.createElement("div");
+  errorDiv.innerHTML = err;
+  document.getElementById("errors").appendChild(errorDiv);
 }

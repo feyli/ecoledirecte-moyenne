@@ -17,7 +17,7 @@ html {
 body {
     display: table-cell;
     vertical-align: middle;
-    overflow: hidden;
+    overflow: auto;
 }
 
 * {
@@ -131,4 +131,17 @@ body {
 
 button {
     touch-action: manipulation;
+}
+
+#periodes-container > table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.error {
+    background-color: palevioletred;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%
 }
