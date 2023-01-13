@@ -88,6 +88,7 @@ function enable() {
 }
 
 async function evalData(data) {
+    console.log(data)
     let array = {}
     /**
      * @param data.idEleve
