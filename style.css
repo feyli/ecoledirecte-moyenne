@@ -133,9 +133,11 @@ button {
     touch-action: manipulation;
 }
 
-#periodes-container > table {
+#periodes-container > table, th, td {
     width: 100%;
     border-collapse: collapse;
+    border: 1px solid black;
+    padding: 5px;
 }
 
 .error {
