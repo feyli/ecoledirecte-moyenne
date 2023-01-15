@@ -8,19 +8,20 @@
     <link rel="stylesheet" href="style.css">
     <title>EcoleDirecte Fetcher</title>
     <script src="scripts/api.js"></script>
-    <script src="scripts/main.js"></script>
 </head>
 <body>
+    <div id="errors"></div>
     <div id="box">
         <p id="info-text">Calculateur de moyenne EcoleDirecte</p>
         <div class="form-container">
             <input type="text" placeholder="Identifiant" id="username" autocomplete="username" autocapitalize="off" class="fields">
             <input type="password" placeholder="Mot de passe" id="password" autocomplete="current-password" class="fields">
-            <button onclick="toggleView()" id="toggleButton"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="toggleSVG"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg><span id="hide/show">Afficher le mot de passe</span></button>
-            <button onclick="submit()" id="submit">Connexion</button>
+            <button id="toggleButton"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="toggleSVG"><path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/></svg><span id="hide/show">Afficher le mot de passe</span></button>
+            <button id="submit">Connexion</button>
         </div>
         <p id="periodes-header">Périodes</p>
         <div id="periodes-container"></div>
     </div>
 </body>
+<script src="scripts/main.js"></script>
 </html>

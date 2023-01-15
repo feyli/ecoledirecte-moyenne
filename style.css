@@ -25,6 +25,8 @@ body {
 }
 
 #box {
+    position: relative;
+    background-color: white;
     max-width: 500px;
     padding: 20px;
     border-radius: 10px;
@@ -36,6 +38,7 @@ body {
     color: var(--light-primary-color);
     text-align: center;
     margin-bottom: 30px;
+    font-size: 1.2em;
 }
 
 .form-container {
@@ -123,9 +126,23 @@ body {
     margin-top: 30px;
 }
 
+#periodes {
+    width: 100%;
+    border-radius: 1em;
+    border-collapse: separate;
+    background-color: lightgrey;
+    border: 1px solid grey;
+}
+
+#periodes td, #periodes th {
+    padding: 10px;
+    text-align: center;
+}
+
 @media screen and (max-width: 450px) {
     #box {
         box-shadow: none;
+        background: none;
     }
 }
 
@@ -133,17 +150,55 @@ button {
     touch-action: manipulation;
 }
 
-#periodes-container > table, th, td {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid black;
-    padding: 5px;
+#errors {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    margin: 0 auto;
+    top: 0;
+    max-width: 500px;
 }
 
 .error {
-    background-color: palevioletred;
+    animation: appear 0.5s ease-in-out;
+    background: var(--light-secondary-color);
     color: black;
+    border: 1px solid dimgrey;
+    border-radius: 5px;
+    width: 500px;
+    text-align: center;
     padding: 10px;
-    border-radius: 10px;
-    width: 90%
+    cursor: pointer;
+}
+
+#submit.whenError {
+    animation: shake 0.25s;
+    animation-iteration-count: 2;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+@keyframes shake {
+  0% { transform: translateX(1px); }
+  10% { transform: translateX(-1px); }
+  20% { transform: translateX(-3px); }
+  30% { transform: translateX(3px); }
+  40% { transform: translateX(1px); }
+  50% { transform: translateX(-1px); }
+  60% { transform: translateX(-3px); }
+  70% { transform: translateX(3px); }
+  80% { transform: translateX(-1px); }
+  90% { transform: translateX(1px); }
+  100% { transform: translateX(1px); }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

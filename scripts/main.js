@@ -1,25 +1,34 @@
 let baseUrl = "https://api.ecoledirecte.com/v3";
-let box = document.getElementById("box");
+const box = document.getElementById("box");
+const body = document.getElementsByTagName("body")[0];
 let fields;
-let submitButton;
+const submitButton = document.getElementById("submit");
+const toggleButton = document.getElementById("toggleButton");
+const inputs = document.querySelectorAll(".fields");
+
+inputs.forEach(input => input.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") submit() && input.blur();
+}));
+submitButton.addEventListener("click", submit);
+toggleButton.addEventListener("click", toggleView);
 
 async function submit() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value
     fields = document.getElementsByClassName("fields");
-    submitButton = document.getElementById("submit")
 
     let req = login(username, password, baseUrl);
     disable();
 
     req.then(data => {
         if (data.code === 505) {
-            console.log("Error: invalid credentials")
+            error("Identifiants incorrects");
             enable();
         } else if (data.code === 200) {
             console.log("Logged in successfully!")
             evalData(data).then(d => {
                 d = d.filter(e => e.sum);
+                resetTable();
                 createTable(d);
                 enable();
             })
@@ -32,13 +41,10 @@ function createTable(d) {
     let tabDiv = document.getElementById("periodes-container");
     let table = document.createElement("table");
     table.id = "periodes";
-    let thead = document.createElement("thead");
-    thead.colspan = 2;
-    thead.innerText = "Periodes";
     let tbody = document.createElement("tbody");
     let tr = document.createElement("tr");
     let thPeriode = document.createElement("th");
-    thPeriode.innerText = "Periode";
+    thPeriode.innerText = "Période";
     let thMoyenne = document.createElement("th");
     thMoyenne.innerText = "Moyenne";
     tr.appendChild(thPeriode);
@@ -54,9 +60,13 @@ function createTable(d) {
         tr.appendChild(tdMoyenne);
         tbody.appendChild(tr);
     }
-    table.appendChild(thead);
     table.appendChild(tbody);
     tabDiv.appendChild(table);
+}
+
+function resetTable() {
+    let table = document.getElementById("periodes");
+    if (table) table.remove();
 }
 
 function toggleView() {
@@ -134,7 +144,12 @@ async function evalData(data) {
 }
 
 function error(err) {
-  let errorDiv = document.createElement("div");
-  errorDiv.innerHTML = err;
-  document.getElementById("errors").appendChild(errorDiv);
+    console.log(err);
+    submitButton.classList.add("whenError");
+    setTimeout(() => {
+        submitButton.classList.remove("whenError");
+    }, 500);
+    let errorDiv = document.createElement("div");
+    errorDiv.innerHTML = err;
+    document.getElementById("errors").appendChild(errorDiv);
 }
