@@ -132,3 +132,4 @@ dist
 # JetBrains junk files
 .fleet
 .idea
+.DS_Store
