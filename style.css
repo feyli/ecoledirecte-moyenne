@@ -1,23 +1,25 @@
 :root {
     --light-primary-color: #0f8fd1;
     --hover-primary-color: #aad8ea;
+    --secondary-color: #cd1478;
     --light-secondary-color: #e46bad;
 }
 
-html, body {
-    height: 100%;
-}
-
 html {
-    display: table;
-    margin: auto;
+    margin: 0;
     font-family: Tahoma, Helvetica, Arial, sans-serif;
 }
 
 body {
-    display: table-cell;
-    vertical-align: middle;
-    overflow: auto;
+    display: block;
+}
+
+html, body {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 * {
@@ -26,12 +28,14 @@ body {
 
 #box {
     position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: white;
     max-width: 500px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px grey;
-    margin: 20px;
 }
 
 #info-text {
@@ -81,12 +85,12 @@ body {
 #toggleSVG {
     vertical-align: middle;
     margin-right: 5px;
+    margin-bottom: 2px;
     height: 10px;
     fill: white;
 }
 
 #toggleButton {
-    align-self: flex-start;
     background-color: var(--light-primary-color);
     color: white;
     padding: 5px 10px;
@@ -150,25 +154,45 @@ button {
     touch-action: manipulation;
 }
 
-#errors {
+#message-container {
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    z-index: 2;
-    left: 0;
-    margin: 0 auto;
+    width: 500px;
+    z-index: 1;
+    left: 50%;
     top: 0;
-    max-width: 500px;
+    transform: translate(-50%, 0);
+    gap: 3px;
+    align-items: center;
 }
 
-.error {
-    animation: appear 0.5s ease-in-out;
-    background: var(--light-secondary-color);
-    color: black;
+.message {
+    animation: appear 0.25s ease-in-out;
+    background-color: darkgrey;
+    color: white;
     border: 1px solid dimgrey;
     border-radius: 5px;
-    width: 500px;
     text-align: center;
     padding: 10px;
     cursor: pointer;
+    width: max-content;
+}
+
+.close {
+    animation: disappear 0.25s ease-in-out;
+}
+
+.message::after {
+    display: inline-block;
+    content: "\00d7";
+    color: lightgrey;
+    margin: 0 0 0 5px;
+}
+
+.message:hover::after {
+    color: white
 }
 
 #submit.whenError {
@@ -200,5 +224,14 @@ button {
     100% {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }

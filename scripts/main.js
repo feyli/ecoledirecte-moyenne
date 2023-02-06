@@ -22,10 +22,11 @@ async function submit() {
 
     req.then(data => {
         if (data.code === 505) {
-            error("Identifiants incorrects");
+            message("Identifiants incorrects", 'red');
             enable();
         } else if (data.code === 200) {
             console.log("Logged in successfully!")
+            message("Connexion réussie", 'green');
             evalData(data).then(d => {
                 d = d.filter(e => e.sum);
                 resetTable();
@@ -76,7 +77,7 @@ function toggleView() {
     let newValue = {
         "password": ["text", "Afficher le mot de passe"],
         "text": ["password", "Masquer le mot de passe"]
-    };
+    }
 
     // new regex to filter html beacon out of toggleButton innerHTML
     let regex = /<[^>]*>/g;
@@ -143,13 +144,28 @@ async function evalData(data) {
     return d;
 }
 
-function error(err) {
-    console.log(err);
-    submitButton.classList.add("whenError");
+function message(content, color) {
+    let background = {
+        "red": "#cd1478",
+        "green": "#6aaf11"
+    }
+    console.log(content);
+    let messageDiv = document.createElement("div");
+    messageDiv.innerHTML = content;
+    messageDiv.classList.add("message");
+    messageDiv.style.backgroundColor = background[color];
+    document.getElementById("message-container").appendChild(messageDiv);
+    messageDiv.addEventListener("click", () => {
+        close(messageDiv);
+    });
     setTimeout(() => {
-        submitButton.classList.remove("whenError");
-    }, 500);
-    let errorDiv = document.createElement("div");
-    errorDiv.innerHTML = err;
-    document.getElementById("errors").appendChild(errorDiv);
+        close(messageDiv);
+    }, 5000);
+}
+
+function close(element) {
+    element.classList.add("close");
+    setTimeout(() => {
+        element.remove();
+    }, 250);
 }
