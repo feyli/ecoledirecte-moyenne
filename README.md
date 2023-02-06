@@ -11,10 +11,10 @@ Vous pouvez télécharger une release via l'onglet [Releases](https://github.com
 
 Vos identifiants EcoleDirecte ne sont envoyés qu'à EcoleDirecte. Je ne récupère dans aucune situation la moindre information concernant votre visite. Si vous le souhaitez, n'hésitez surtout pas à inspecter de fond en comble le code source disponible sous chaque release ou dans la branche `main`.
 
-## Auteurs
+## Auteur(s)
 
 - [@feyli](https://www.github.com/feyli)
 
-## Me contacter
+## Contact
 
 Discord : Feyli#6634
