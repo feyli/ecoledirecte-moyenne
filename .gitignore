@@ -125,3 +125,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# macOS junk files
+.DS_Store
+
+# JetBrains junk files
+.fleet
+.idea
