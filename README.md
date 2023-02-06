@@ -1,21 +1,20 @@
 
 # Moyenne EcoleDirecte
 
-Ce projet a pour unique fonction d'indiquer votre moyenne générale du trimestre choisi.
+Cette unique page sous le fichier index.html a pour but de vous indiquer votre moyenne générale pour chaque période de votre année scolaire en cours sur EcoleDirecte à l'aide de vos identifiants.
 
 ## Installation
 
-Vous pouvez télécharger une release via l'onglet [Releases](https://github.com/feyli/ecoledirecte-moyenne/releases). Il est actuellement vide.
+Vous pouvez télécharger une release via l'onglet [Releases](https://github.com/feyli/ecoledirecte-moyenne/releases).
 
-## Références
+## Sécurité
 
-Ce projet est susceptible d'utiliser des bibliothèques NPM ainsi que leurs dépendances.
-Ceci dit, l'activité entre ce programme et l'API d'EcoleDirecte est entièrement gérée localement et dans ce projet. Les fonctions de connexion à l'API sont présentes dans le fichier api.js exhaustivement.
-## Authors
+Vos identifiants EcoleDirecte ne sont envoyés qu'à EcoleDirecte. Je ne récupère dans aucune situation la moindre information concernant votre visite. Si vous le souhaitez, n'hésitez surtout pas à inspecter de fond en comble le code source disponible sous chaque release ou dans la branche `main`.
+
+## Auteurs
 
 - [@feyli](https://www.github.com/feyli)
+
 ## Me contacter
 
-Pour le moment, vous pouvez me contacter via Discord : Feyli#6634
-
-N'hésitez surtout pas si vous avez la moindre question.
+Discord : Feyli#6634
