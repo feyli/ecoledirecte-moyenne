@@ -7,10 +7,11 @@ function login(username, password, baseUrl) {
     }).then(response => response.json());
 }
 
+
 function getGrades(token, idEleve, baseUrl) {
     let data = 'data={"token": "' + token + '"}';
     // use fetch to send a POST request to the grades endpoint
-    return fetch(baseUrl + '/eleves/' + idEleve + '/notes.awp?verbe=get&', {
+    return fetch(baseUrl + '/eleves/' + idEleve + '/notes.awp?verbe=get', {
         method: 'POST',
         body: data
     }).then(response => response.json()).then(response => response.data.periodes);
@@ -35,6 +36,7 @@ async function main(username, password) {
 
         // get grades
         let grades = await getGrades(token, idEleve, baseUrl);
+        console.log(grades);
 
         /**
          * @param disciplines.ensembleMatieres array

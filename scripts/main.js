@@ -17,19 +17,24 @@ async function submit() {
     let password = document.getElementById("password").value
     fields = document.getElementsByClassName("fields");
 
+    if (window.navigator.onLine === false) return message("Vous n'êtes pas connecté à Internet");
+    if (!username || !password) return message("Vous devez entrer un identifiant et un mot de passe", 'red');
     let req = login(username, password, baseUrl);
     disable();
 
     req.then(data => {
         if (data.code === 505) {
+            $("#submit").addClass('whenError');
+            setTimeout(() => {
+                $("submit").removeClass('whenError');
+            }, 1);
             message("Identifiants incorrects", 'red');
             enable();
         } else if (data.code === 200) {
-            console.log("Logged in successfully!")
             message("Connexion réussie", 'green');
             evalData(data).then(d => {
                 d = d.filter(e => e.sum);
-                resetTable();
+                reset();
                 createTable(d);
                 enable();
             })
@@ -39,35 +44,29 @@ async function submit() {
 
 function createTable(d) {
     // let promise = getGrades(d.token)
-    let tabDiv = document.getElementById("periodes-container");
-    let table = document.createElement("table");
-    table.id = "periodes";
-    let tbody = document.createElement("tbody");
-    let tr = document.createElement("tr");
-    let thPeriode = document.createElement("th");
-    thPeriode.innerText = "Période";
-    let thMoyenne = document.createElement("th");
-    thMoyenne.innerText = "Moyenne";
-    tr.appendChild(thPeriode);
-    tr.appendChild(thMoyenne);
-    tbody.appendChild(tr);
+    let $tabDiv = $("#periodes-container");
+    let $table = $("<table>", { id: "periodes" });
+    let $tbody = $("<tbody>");
+    let $tr = $("<tr>");
+    let $thPeriode = $("<th>", { text: "Période" });
+    let $thMoyenne = $("<th>", { text: "Moyenne" });
+    $tr.append($thPeriode).append($thMoyenne);
+    $tbody.append($tr);
     for (let i = 0; i < d.length; i++) {
-        let tr = document.createElement("tr");
-        let tdPeriode = document.createElement("td");
-        tdPeriode.innerText = d[i].name;
-        let tdMoyenne = document.createElement("td");
-        tdMoyenne.innerText = d[i].sum;
-        tr.appendChild(tdPeriode);
-        tr.appendChild(tdMoyenne);
-        tbody.appendChild(tr);
+        let $tr = $("<tr>");
+        let $tdPeriode = $("<td>", { text: d[i].name });
+        let $tdMoyenne = $("<td>", { text: d[i].sum });
+        $tr.append($tdPeriode).append($tdMoyenne);
+        $tbody.append($tr);
     }
-    table.appendChild(tbody);
-    tabDiv.appendChild(table);
+    $table.append($tbody);
+    $tabDiv.append($table);
 }
 
-function resetTable() {
-    let table = document.getElementById("periodes");
-    if (table) table.remove();
+
+function reset() {
+    $(".fields").val('');
+    $("#periodes").remove();
 }
 
 function toggleView() {

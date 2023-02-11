@@ -5,35 +5,36 @@
     --light-secondary-color: #e46bad;
 }
 
+body {
+    height: 100%;
+    width: 100%;
+}
+
 html {
-    margin: 0;
+    height: 100%;
+    width: 100%;
     font-family: Tahoma, Helvetica, Arial, sans-serif;
 }
 
-body {
-    display: block;
-}
-
-html, body {
-    position: relative;
-    height: 100%;
-    width: 100%;
+* {
     margin: 0;
     padding: 0;
-}
-
-* {
+    box-sizing: border-box;
     border: 0 solid;
 }
 
+#container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #box {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: white;
-    max-width: 500px;
-    padding: 20px;
+    margin: 20px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px grey;
 }
@@ -143,6 +144,16 @@ html, body {
     text-align: center;
 }
 
+#periodes td::after {
+    content: "test";
+    position: relative;
+    bottom: 10px;
+    left: 3px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 @media screen and (max-width: 450px) {
     #box {
         box-shadow: none;
@@ -178,6 +189,7 @@ button {
     padding: 10px;
     cursor: pointer;
     width: max-content;
+    user-select: none; -webkit-user-select: none;
 }
 
 .close {
@@ -200,6 +212,18 @@ button {
     animation-iteration-count: 2;
     animation-timing-function: ease-in-out;
     animation-fill-mode: both;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 
 @keyframes shake {
