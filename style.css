@@ -39,6 +39,8 @@ html {
 }
 
 #box {
+    width: 100%;
+    max-width: 700px;
     background-color: white;
     margin: 20px;
     padding: 30px;
