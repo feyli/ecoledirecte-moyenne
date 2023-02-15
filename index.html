@@ -18,17 +18,28 @@
         <div id="box">
             <p id="info-text">Calculateur de moyenne EcoleDirecte</p>
             <div class="form-container">
-                <input type="text" placeholder="Identifiant" id="username" aria-label="identifiant" autocomplete="username" autocapitalize="off"
+                <input type="text" placeholder="Identifiant" id="username" aria-label="identifiant"
+                       autocomplete="username" autocapitalize="off"
                        class="fields">
-                <input type="password" placeholder="Mot de passe" id="password" aria-label="identifiant" autocomplete="current-password"
+                <input type="password" placeholder="Mot de passe" id="password" aria-label="identifiant"
+                       autocomplete="current-password"
                        class="fields">
-                <button id="toggleButton">
+                <button id="toggleButton" class="noselect">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="toggleSVG">
                         <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm9-.449s-4.252 8.449-11.985 8.449c-7.18 0-12.015-8.449-12.015-8.449s4.446-7.551 12.015-7.551c7.694 0 11.985 7.551 11.985 7.551zm-7 .449c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5 5-2.243 5-5z"/>
                     </svg>
                     <span id="hide/show">Afficher le mot de passe</span></button>
-                <button id="submit">Connexion</button>
-                <button id="reset">Supprimer vos identfiants de votre navigateur</button>
+                <div id="checkbox-container" class="checkbox">
+                    <div class="noselect">
+                        <input type="checkbox" id="remember" class="checkbox-btn" name="remember">
+                        <label for="remember" class="checkbox-lbl">Se souvenir de moi</label>
+                    </div>
+                    <div class="anonymous-container noselect">
+                        <input type="checkbox" id="anonymous" class="checkbox-btn" name="anonymous">
+                        <label for="anonymous" class="checkbox-lbl">Connexion anonyme</label>
+                    </div>
+                </div>
+                <button id="submit" class="noselect">Connexion</button>
             </div>
             <div id="periodes-container"></div>
         </div>

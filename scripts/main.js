@@ -12,8 +12,45 @@ $("#submit").click(submit);
 $("#toggleButton").click(toggleView);
 
 $(document).ready(function () {
+    let rememberBox = $("#remember");
     $("#username").val(window.localStorage.getItem("username"));
     $("#password").val(window.localStorage.getItem("password"));
+
+    if (window.localStorage.getItem("username") && window.localStorage.getItem("password")) $(".anonymous-container").css("display", "block");
+
+    $("#anonymous").change(function () {
+        if ($(this).prop("checked") === true) {
+            rememberBox.prop("checked", false);
+            rememberBox.prop("disabled", true);
+            $(".checkbox-lbl[for=remember]").css("color", "grey");
+            if ($("#username").val() === window.localStorage.getItem("username") && $("#password").val() === window.localStorage.getItem("password")) {
+                reset();
+            }
+            $("#username").prop("placeholder", "Identifiant temporaire");
+            $("#password").prop("placeholder", "Mot de passe temporaire");
+        } else {
+            rememberBox.removeAttr("disabled");
+            $(".checkbox-lbl[for=remember]").removeAttr("style");
+            rememberBox.prop("checked", window.localStorage.getItem("remember"));
+            $("#username").prop("placeholder", "Identifiant");
+            $("#password").prop("placeholder", "Mot de passe");
+            if (!$("#username").val() && !$("#password").val()) {
+                $("#username").val(window.localStorage.getItem("username"));
+                $("#password").val(window.localStorage.getItem("password"));
+            }
+
+        }
+    });
+
+    rememberBox.prop("checked", window.localStorage.getItem("remember") === "true");
+    rememberBox.change(function () {
+        window.localStorage.setItem("remember", $(this).is(":checked"));
+        if ($(this).prop("checked") === false && $("#anonymous").is(":checked") === false) {
+            window.localStorage.removeItem("username");
+            window.localStorage.removeItem("password");
+            $(".anonymous-container").css("display", "none");
+        }
+    });
 });
 
 async function submit() {
@@ -36,48 +73,35 @@ async function submit() {
             enable();
         } else if (data.code === 200) {
             message("Connexion réussie", 'green');
-            evalData(data).then(d => {
-                d = d.filter(e => e.sum);
-                reset();
-                createTable(d);
-                enable();
+            if (!$("#anonymous").is(":checked") && window.localStorage.getItem("remember") === "true") {
                 window.localStorage.setItem("username", username);
                 window.localStorage.setItem("password", password);
+                $(".anonymous-container").css("display", "block");
+            }
+            evalData(data).then(d => {
+                reset();
+                d = d.filter(e => e.sum);
+                createTable(d);
+                enable();
             })
         }
     })
 }
 
-
-if (window.localStorage.getItem("username") || window.localStorage.getItem("password")) {
-    let resetButton = $("#reset");
-    resetButton.css("display", "block");
-    resetButton.click(function () {
-    if (!window.localStorage.getItem("username") && !window.localStorage.getItem("password")) return message("Aucunes informations de connexion trouvées dans votre navigateur", 'red');
-    let alert = confirm("Après confirmation, les données de connexion seront supprimées de votre appareil. Continuer ?");
-    if (alert) {
-        window.localStorage.removeItem("username");
-        window.localStorage.removeItem("password");
-        message("Informations supprimées", 'green');
-        if ($("#username").val() || $("#password").val()) { reset(); window.location.reload() }
-    }
-});
-}
-
 function createTable(d) {
     // let promise = getGrades(d.token)
     let $tabDiv = $("#periodes-container");
-    let $table = $("<table>", { id: "periodes" });
+    let $table = $("<table>", {id: "periodes"});
     let $tbody = $("<tbody>");
     let $tr = $("<tr>");
-    let $thPeriode = $("<th>", { text: "Période" });
-    let $thMoyenne = $("<th>", { text: "Moyenne" });
+    let $thPeriode = $("<th>", {text: "Période"});
+    let $thMoyenne = $("<th>", {text: "Moyenne"});
     $tr.append($thPeriode).append($thMoyenne);
     $tbody.append($tr);
     for (let i = 0; i < d.length; i++) {
         let $tr = $("<tr>");
-        let $tdPeriode = $("<td>", { text: d[i].name });
-        let $tdMoyenne = $("<td>", { text: d[i].sum });
+        let $tdPeriode = $("<td>", {text: d[i].name});
+        let $tdMoyenne = $("<td>", {text: d[i].sum});
         $tr.append($tdPeriode).append($tdMoyenne);
         $tbody.append($tr);
     }
