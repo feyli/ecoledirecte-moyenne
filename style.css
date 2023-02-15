@@ -109,18 +109,19 @@ html {
     transition: background-color 125ms
 }
 
-#submit:hover {
-    border: initial;
-}
-
 #submit:disabled {
     background-color: var(--hover-primary-color);
     border: initial;
     cursor: wait;
 }
 
-#periodes-header {
+#reset {
     display: none;
+    margin: 10px 0;
+    color: grey;
+    background: none;
+    cursor: pointer;
+    text-align: left;
 }
 
 #periodes-container:empty {
@@ -145,6 +146,7 @@ html {
 }
 
 #periodes td::after {
+    display: none;
     content: "test";
     position: relative;
     bottom: 10px;
@@ -158,6 +160,10 @@ html {
     #box {
         box-shadow: none;
         background: none;
+    }
+
+    #save {
+        font-size: 0.7em;
     }
 }
 
