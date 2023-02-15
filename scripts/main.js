@@ -1,16 +1,20 @@
 let baseUrl = "https://api.ecoledirecte.com/v3";
-const box = document.getElementById("box");
 const body = document.getElementsByTagName("body")[0];
 let fields;
 const submitButton = document.getElementById("submit");
-const toggleButton = document.getElementById("toggleButton");
 const inputs = document.querySelectorAll(".fields");
 
 inputs.forEach(input => input.addEventListener("keypress", function (e) {
     if (e.key === "Enter") submit() && input.blur();
 }));
-submitButton.addEventListener("click", submit);
-toggleButton.addEventListener("click", toggleView);
+
+$("#submit").click(submit);
+$("#toggleButton").click(toggleView);
+
+$(document).ready(function () {
+    $("#username").val(window.localStorage.getItem("username"));
+    $("#password").val(window.localStorage.getItem("password"));
+});
 
 async function submit() {
     let username = document.getElementById("username").value;
@@ -37,9 +41,27 @@ async function submit() {
                 reset();
                 createTable(d);
                 enable();
+                window.localStorage.setItem("username", username);
+                window.localStorage.setItem("password", password);
             })
         }
     })
+}
+
+
+if (window.localStorage.getItem("username") || window.localStorage.getItem("password")) {
+    let resetButton = $("#reset");
+    resetButton.css("display", "block");
+    resetButton.click(function () {
+    if (!window.localStorage.getItem("username") && !window.localStorage.getItem("password")) return message("Aucunes informations de connexion trouvées dans votre navigateur", 'red');
+    let alert = confirm("Après confirmation, les données de connexion seront supprimées de votre appareil. Continuer ?");
+    if (alert) {
+        window.localStorage.removeItem("username");
+        window.localStorage.removeItem("password");
+        message("Informations supprimées", 'green');
+        if ($("#username").val() || $("#password").val()) { reset(); window.location.reload() }
+    }
+});
 }
 
 function createTable(d) {
@@ -78,9 +100,6 @@ function toggleView() {
         "text": ["password", "Masquer le mot de passe"]
     }
 
-    // new regex to filter html beacon out of toggleButton innerHTML
-    let regex = /<[^>]*>/g;
-
     passField.type = newValue[passField.type][0];
     toggleText.innerText = newValue[passField.type][1];
 }
@@ -103,6 +122,8 @@ async function evalData(data) {
     let d = []
     /**
      * @param data.idEleve
+     * @param data.token
+     * @param data.data.accounts[0]
      * @type {*}
      */
     let grades = await getGrades(data.token, data.data.accounts[0].id, baseUrl);
@@ -111,6 +132,7 @@ async function evalData(data) {
      * @param disciplines.ensembleMatieres array
      * @param ensembleMatieres.disciplines  array of subjects
      * @param element.sousMatiere boolean (true if subject is a part of another subject)
+     * @param grades.periode
      */
 
     for (let p = 0; p < grades.length; p++) {
