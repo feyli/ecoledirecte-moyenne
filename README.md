@@ -1,15 +1,15 @@
 
 # Moyenne EcoleDirecte
 
-Cette unique page sous le fichier index.html a pour but de vous indiquer votre moyenne générale pour chaque période de votre année scolaire en cours sur EcoleDirecte à l'aide de vos identifiants.
+Ce site Internet indique la moyenne générale de chaque trimestre de votre année scolaire à l'aide de vos identifiants EcoleDirecte.
 
-## Installation
+## Utilisation
 
-Vous pouvez télécharger une release via l'onglet [Releases](https://github.com/feyli/ecoledirecte-moyenne/releases).
+Le site est déployé par GitHub Pages à l'adresse suivante : https://feyli.github.io/ecoledirecte-moyenne
 
 ## Sécurité
 
-Vos identifiants EcoleDirecte ne sont envoyés qu'à EcoleDirecte. Je ne récupère dans aucune situation la moindre information concernant votre visite. Si vous le souhaitez, n'hésitez surtout pas à inspecter de fond en comble le code source disponible sous chaque release ou dans la branche `main`.
+Vos identifiants EcoleDirecte sont transmis uniquement à EcoleDirecte, et je ne collecte aucune information sur votre visite. Si vous le souhaitez, vous pouvez inspecter le code source disponible dans chaque version publiée ou dans la branche principale (main) du site. Le bouton "Se souvenir de moi" stocke vos identifiants uniquement sur votre appareil et non en ligne. Si des identifiants sont enregistrés, le bouton "Connexion anonyme" apparaît. Cela empêche les identifiants que vous entrez d'affecter ceux qui sont stockés dans votre navigateur, par exemple, si vous souhaitez calculer la moyenne d'une autre personne tout en conservant vos propres identifiants en mémoire.
 
 ## Auteur(s)
 
@@ -17,4 +17,5 @@ Vos identifiants EcoleDirecte ne sont envoyés qu'à EcoleDirecte. Je ne récup�
 
 ## Contact
 
-Discord : Feyli#6634
+- Discord : Feyli#6634
+- Twitter : [@whoisfeyli](https://twitter.com/whoisfeyli)
