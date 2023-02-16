@@ -17,5 +17,5 @@ Vos identifiants EcoleDirecte ne sont envoyés qu'à EcoleDirecte. Je ne récup�
 
 ## Contact
 
-Discord : Feyli#6634
-Twitter : [@whoisfeyli](https://twitter.com/whoisfeyli)
+- Discord : Feyli#6634
+- Twitter : [@whoisfeyli](https://twitter.com/whoisfeyli)
