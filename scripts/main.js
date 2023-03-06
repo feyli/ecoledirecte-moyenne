@@ -79,7 +79,7 @@ async function submit() {
                 $(".anonymous-container").css("display", "block");
             }
             evalData(data).then(d => {
-                reset();
+                if (localStorage.getItem('remember') !== "true") reset();
                 d = d.filter(e => e.sum);
                 createTable(d);
                 enable();
